@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ isEditing ? 'Editar empleado' : 'Nuevo empleado' }}</span>
+
+    <form (ngSubmit)="submit()">
+      <div class="input-field">
+        <input id="nombre" type="text" name="nombre" placeholder="Nombre" [(ngModel)]="model.nombre" />
+      </div>
+      <div class="input-field">
+        <input id="cargo" type="text" name="cargo" placeholder="Cargo" [(ngModel)]="model.cargo" />
+      </div>
+      <div class="input-field">
+        <input id="departamento" type="text" name="departamento" placeholder="Departamento" [(ngModel)]="model.departamento" />
+      </div>
+      <div class="input-field">
+        <input id="sueldo" type="number" name="sueldo" placeholder="Sueldo" [(ngModel)]="model.sueldo" />
+      </div>
+
+      <button type="submit" class="btn">{{ isEditing ? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" class="btn-flat" (click)="onCancel()">Cancelar</button>
+    </form>
+  </div>
+</div>

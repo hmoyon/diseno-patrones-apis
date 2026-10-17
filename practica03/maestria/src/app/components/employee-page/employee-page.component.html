@@ -1,0 +1,34 @@
+<div class="container">
+  <h4>Gestión de Empleados</h4>
+
+  <!-- Errores del backend (Response Wrapper) -->
+  <div class="card-panel red lighten-4 red-text text-darken-4" *ngIf="errors$ | async as errors">
+    <strong>No se pudo completar la operación:</strong>
+    <ul>
+      <li *ngFor="let e of errors">{{ e }}</li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <!-- DUMB: formulario. Solo recibe @Input y emite @Output -->
+    <div class="col s12 m4">
+      <app-employee-form
+        [employee]="selected"
+        [resetKey]="resetKey"
+        (save)="onSave($event)"
+        (cancel)="onCancel()">
+      </app-employee-form>
+    </div>
+
+    <!-- DUMB: tabla. Recibe la lista resuelta por el async pipe -->
+    <div class="col s12 m8">
+      <p *ngIf="loading$ | async">Cargando empleados...</p>
+      <app-employee-table
+        [employees]="(employees$ | async) ?? []"
+        [selectedId]="selected?.id ?? null"
+        (edit)="onEdit($event)"
+        (remove)="onRemove($event)">
+      </app-employee-table>
+    </div>
+  </div>
+</div>

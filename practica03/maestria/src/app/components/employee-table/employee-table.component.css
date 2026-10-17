@@ -1,0 +1,4 @@
+/* Resalta la fila que se está editando */
+tr.editing {
+  background-color: #e3f2fd !important;
+}
