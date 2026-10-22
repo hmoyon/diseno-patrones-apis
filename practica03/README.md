@@ -406,4 +406,4 @@ GET {{baseUrl}}/xyz
 ## Autor
 
 **Héctor Moyón Amaya** — Maestría de Software
-Docente: Ing. Jennifer Yépez A., MSc.
+Docente: Ing. Patsy Prieto V., MSc.
