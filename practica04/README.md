@@ -246,11 +246,7 @@ Prueba sin Sandbox (PowerShell, con el servidor corriendo):
 Invoke-RestMethod -Uri http://localhost:4000/ -Method Post -ContentType "application/json" -Body '{"query":"{ clientes { nombre facturas { monto } } }"}' | ConvertTo-Json -Depth 5
 ```
 
-## 9. Entrega
+## Autor
 
-Comprimir en un archivo `.zip` llamado `Apellido_Nombre_Practica3_GraphQL` con:
-
-- `server.js` (versión optimizada).
-- `reporte.txt` (indica **2 consultas** tras aplicar DataLoader).
-
-> No incluir la carpeta `node_modules/`.
+**Héctor Moyón Amaya** — Maestría de Software
+Docente: Ing. Patsy Prieto V., MSc.
