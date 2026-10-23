@@ -1,0 +1,2 @@
+Consultas antes (ingenuo): 4  (1 de clientes + 3 de facturas)
+Consultas con DataLoader: 2  (1 de clientes + 1 por lotes)
