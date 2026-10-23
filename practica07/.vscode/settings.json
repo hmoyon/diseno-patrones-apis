@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d3faa226-772f-4425-a08d-2e5d70a440ec/resourceGroups/ups-test-front/providers/Microsoft.Web/sites/hmoyonempleados",
+    "appService.deploySubpath": "frontend\\dist\\frontend\\browser"
+}
