@@ -1,0 +1,214 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--color-bg);
+}
+
+/* ---------- Menú lateral ---------- */
+.sidebar {
+  flex: 1 1 200px;
+  max-width: 240px;
+  padding: 24px 16px;
+  background: var(--color-nav);
+  color: #e6ebf2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.brand {
+  padding: 0 12px 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: var(--radius);
+  color: var(--color-nav-text);
+  text-decoration: none;
+}
+
+.nav-link--active {
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* ---------- Contenido ---------- */
+.content {
+  flex: 999 1 560px;
+  min-width: 0;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Resumen ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stat {
+  padding: 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.stat-value--mono {
+  font-family: var(--font-mono);
+}
+
+/* ---------- Panel de la tabla ---------- */
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.panel-toolbar {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.search {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  font-size: 14px;
+}
+
+.search:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.loading {
+  margin: 0;
+  padding: 16px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* ---------- Cajón del formulario ---------- */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 27, 45, 0.45);
+  z-index: 10;
+  animation: fade-in 0.15s ease;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-surface);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+  z-index: 11;
+  overflow-y: auto;
+  animation: slide-in 0.2s ease;
+}
+
+/* ---------- Aviso ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  background: var(--color-nav);
+  color: #ffffff;
+  font-size: 14px;
+  z-index: 20;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer-backdrop {
+    animation: none;
+  }
+}
+
+/* ---------- Pantallas angostas ---------- */
+@media (max-width: 780px) {
+  .sidebar {
+    max-width: none;
+    flex-basis: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+  }
+
+  .brand {
+    padding: 0 12px 0 0;
+    margin-right: auto;
+  }
+
+  .content {
+    padding: 20px 16px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}

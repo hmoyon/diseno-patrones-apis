@@ -1,34 +1,96 @@
-<div class="container">
-  <h4>Gestión de Empleados</h4>
+<div class="layout">
+  <!-- Menú lateral -->
+  <nav class="sidebar" aria-label="Menú principal">
+    <div class="brand">RR.HH. Panel</div>
+    <a class="nav-link nav-link--active" href="/" aria-current="page">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="9" cy="8" r="4"></circle>
+        <path d="M2 21c0-4 3-6 7-6s7 2 7 6"></path>
+        <path d="M17 11a3 3 0 1 0 0-6"></path>
+        <path d="M22 21c0-3-2-5-5-5.5"></path>
+      </svg>
+      Empleados
+    </a>
+  </nav>
 
-  <!-- Errores del backend (Response Wrapper) -->
-  <div class="card-panel red lighten-4 red-text text-darken-4" *ngIf="errors$ | async as errors">
-    <strong>No se pudo completar la operación:</strong>
-    <ul>
-      <li *ngFor="let e of errors">{{ e }}</li>
-    </ul>
-  </div>
+  <main class="content">
+    <!-- Encabezado -->
+    <header class="page-header">
+      <div>
+        <h1>Empleados</h1>
+        <p class="subtitle">Gestiona el personal de la organización</p>
+      </div>
+      <button type="button" class="btn btn--primary" (click)="openNew()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M12 5v14M5 12h14"></path>
+        </svg>
+        Nuevo empleado
+      </button>
+    </header>
 
-  <div class="row">
-    <!-- DUMB: formulario. Solo recibe @Input y emite @Output -->
-    <div class="col s12 m4">
-      <app-employee-form
-        [employee]="selected"
-        [resetKey]="resetKey"
-        (save)="onSave($event)"
-        (cancel)="onCancel()">
-      </app-employee-form>
+    <!-- Resumen -->
+    <section class="stats" aria-label="Resumen" *ngIf="stats$ | async as stats">
+      <div class="stat">
+        <span class="stat-label">Total de empleados</span>
+        <span class="stat-value">{{ stats.total }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Sueldo promedio</span>
+        <span class="stat-value stat-value--mono">{{ stats.promedio | currency: 'USD' : 'symbol' : '1.2-2' }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Departamentos</span>
+        <span class="stat-value">{{ stats.departamentos }}</span>
+      </div>
+    </section>
+
+    <!-- Errores del backend fuera del cajón (p. ej. al cargar o eliminar) -->
+    <div class="alert alert--error" role="alert" *ngIf="!drawerOpen && (errors$ | async) as errors">
+      <strong>No se pudo completar la operación:</strong>
+      <ul>
+        <li *ngFor="let e of errors">{{ e }}</li>
+      </ul>
     </div>
 
-    <!-- DUMB: tabla. Recibe la lista resuelta por el async pipe -->
-    <div class="col s12 m8">
-      <p *ngIf="loading$ | async">Cargando empleados...</p>
+    <!-- Tabla con buscador -->
+    <section class="panel">
+      <div class="panel-toolbar">
+        <label for="buscar" class="sr-only">Buscar empleado</label>
+        <input
+          id="buscar"
+          type="search"
+          class="search"
+          placeholder="Buscar por nombre, cargo o departamento…"
+          [value]="search$ | async"
+          (input)="onSearch($any($event.target).value)" />
+      </div>
+
+      <p class="loading" *ngIf="loading$ | async">Cargando empleados…</p>
+
+      <!-- DUMB: tabla. Recibe la lista ya filtrada -->
       <app-employee-table
-        [employees]="(employees$ | async) ?? []"
+        [employees]="(filtered$ | async) ?? []"
         [selectedId]="selected?.id ?? null"
+        [emptyMessage]="(search$ | async) ? 'No hay empleados que coincidan con la búsqueda.' : 'No hay empleados registrados.'"
         (edit)="onEdit($event)"
         (remove)="onRemove($event)">
       </app-employee-table>
-    </div>
-  </div>
+    </section>
+  </main>
+
+  <!-- Cajón lateral con el formulario -->
+  <div class="drawer-backdrop" *ngIf="drawerOpen" (click)="onCancel()"></div>
+  <aside class="drawer" *ngIf="drawerOpen" role="dialog" aria-modal="true" aria-labelledby="form-title">
+    <!-- DUMB: formulario. Solo recibe @Input y emite @Output -->
+    <app-employee-form
+      [employee]="selected"
+      [resetKey]="resetKey"
+      [errors]="errors$ | async"
+      (save)="onSave($event)"
+      (cancel)="onCancel()">
+    </app-employee-form>
+  </aside>
+
+  <!-- Aviso breve -->
+  <div class="toast" role="status" *ngIf="toast">{{ toast }}</div>
 </div>

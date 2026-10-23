@@ -1,23 +1,45 @@
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ isEditing ? 'Editar empleado' : 'Nuevo empleado' }}</span>
-
-    <form (ngSubmit)="submit()">
-      <div class="input-field">
-        <input id="nombre" type="text" name="nombre" placeholder="Nombre" [(ngModel)]="model.nombre" />
-      </div>
-      <div class="input-field">
-        <input id="cargo" type="text" name="cargo" placeholder="Cargo" [(ngModel)]="model.cargo" />
-      </div>
-      <div class="input-field">
-        <input id="departamento" type="text" name="departamento" placeholder="Departamento" [(ngModel)]="model.departamento" />
-      </div>
-      <div class="input-field">
-        <input id="sueldo" type="number" name="sueldo" placeholder="Sueldo" [(ngModel)]="model.sueldo" />
-      </div>
-
-      <button type="submit" class="btn">{{ isEditing ? 'Actualizar' : 'Crear' }}</button>
-      <button type="button" class="btn-flat" (click)="onCancel()">Cancelar</button>
-    </form>
+<form class="form" (ngSubmit)="submit()" #f="ngForm">
+  <div class="form-header">
+    <h2 id="form-title">{{ isEditing ? 'Editar empleado' : 'Nuevo empleado' }}</h2>
+    <button type="button" class="icon-btn" aria-label="Cerrar" (click)="onCancel()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
   </div>
-</div>
+
+  <label class="field" for="nombre">
+    Nombre completo
+    <input id="nombre" type="text" name="nombre" required autocomplete="off" [(ngModel)]="model.nombre" />
+  </label>
+
+  <label class="field" for="cargo">
+    Cargo
+    <input id="cargo" type="text" name="cargo" required autocomplete="off" [(ngModel)]="model.cargo" />
+  </label>
+
+  <label class="field" for="departamento">
+    Departamento
+    <input id="departamento" type="text" name="departamento" required autocomplete="off" [(ngModel)]="model.departamento" />
+  </label>
+
+  <label class="field" for="sueldo">
+    Sueldo (USD)
+    <input id="sueldo" type="number" name="sueldo" min="0" step="0.01" required [(ngModel)]="model.sueldo" />
+  </label>
+
+  <!-- Errores del backend (Response Wrapper) -->
+  <div class="alert alert--error" role="alert" *ngIf="errors?.length">
+    <strong>Revisa los datos:</strong>
+    <ul>
+      <li *ngFor="let e of errors">{{ e }}</li>
+    </ul>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn--ghost" (click)="onCancel()">Cancelar</button>
+    <button type="submit" class="btn btn--primary" [disabled]="f.invalid">
+      {{ isEditing ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </div>
+</form>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Employee, NewEmployee } from '../../models/employee';
 
 /** Valor que emite el formulario al guardar (id presente = edición). */
@@ -18,7 +18,7 @@ interface EmployeeFormModel {
 /**
  * DUMB COMPONENT (Presentacional) — Formulario
  * - No inyecta servicios ni conoce HttpClient.
- * - Entradas: @Input() employee, @Input() resetKey
+ * - Entradas: @Input() employee, @Input() resetKey, @Input() errors
  * - Salidas:  @Output() save, @Output() cancel
  * - CLONA su entrada: editar aquí no muta la fila de la tabla.
  */
@@ -31,15 +31,20 @@ interface EmployeeFormModel {
 export class EmployeeFormComponent implements OnChanges {
   @Input() employee: Employee | null = null;
   @Input() resetKey = 0;
+  /** Mensajes de error del backend que el contenedor decide mostrar aquí. */
+  @Input() errors: string[] | null = null;
 
   @Output() readonly save = new EventEmitter<EmployeeFormValue>();
   @Output() readonly cancel = new EventEmitter<void>();
 
   model: EmployeeFormModel = this.emptyModel();
 
-  // Cada vez que cambia una entrada se reconstruye una COPIA local.
-  ngOnChanges(): void {
-    this.model = this.employee ? this.cloneFrom(this.employee) : this.emptyModel();
+  // Solo se reconstruye la copia local si cambian employee o resetKey,
+  // para no borrar lo escrito cuando únicamente llegan errores.
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['employee'] || changes['resetKey']) {
+      this.model = this.employee ? this.cloneFrom(this.employee) : this.emptyModel();
+    }
   }
 
   get isEditing(): boolean {
@@ -49,7 +54,13 @@ export class EmployeeFormComponent implements OnChanges {
   submit(): void {
     const { id, nombre, cargo, departamento, sueldo } = this.model;
     // Se emite un objeto NUEVO, no la referencia interna.
-    this.save.emit({ id, nombre, cargo, departamento, sueldo: Number(sueldo) });
+    this.save.emit({
+      id,
+      nombre: nombre.trim(),
+      cargo: cargo.trim(),
+      departamento: departamento.trim(),
+      sueldo: Number(sueldo),
+    });
   }
 
   onCancel(): void {
