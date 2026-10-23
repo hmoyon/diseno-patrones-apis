@@ -1,0 +1,27 @@
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Cargo</th>
+      <th>Departamento</th>
+      <th>Sueldo</th>
+      <th>Operaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let empleado of employees; trackBy: trackById"
+        [class.editing]="empleado.id === selectedId">
+      <td>{{ empleado.nombre }}</td>
+      <td>{{ empleado.cargo }}</td>
+      <td>{{ empleado.departamento }}</td>
+      <td>{{ empleado.sueldo | number: '1.2-2' }}</td>
+      <td>
+        <button type="button" class="btn-small" (click)="edit.emit(empleado)">Editar</button>
+        <button type="button" class="btn-small red" (click)="remove.emit(empleado)">Eliminar</button>
+      </td>
+    </tr>
+    <tr *ngIf="employees.length === 0">
+      <td colspan="5" class="center-align grey-text">No hay empleados registrados</td>
+    </tr>
+  </tbody>
+</table>
