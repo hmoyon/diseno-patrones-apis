@@ -4,6 +4,19 @@ Aplicación MEAN (MongoDB, Express, Angular, Node.js) para gestionar empleados, 
 
 Solo los usuarios autenticados pueden ver, crear, editar o eliminar empleados. El backend firma un JWT al iniciar sesión y lo exige en cada petición; el frontend lo guarda, lo envía de forma automática e impide entrar a `/employees` sin sesión.
 
+## Contenido
+
+1. [Tecnologías](#tecnologías)
+2. [Requisitos previos](#requisitos-previos)
+3. [Estructura del proyecto](#estructura-del-proyecto)
+4. [Dependencias de seguridad (JWT)](#dependencias-de-seguridad-jwt)
+5. [Instalación y ejecución](#instalación-y-ejecución)
+6. [Endpoints](#endpoints)
+7. [Flujo de autenticación](#flujo-de-autenticación)
+8. [Patrones de diseño aplicados](#patrones-de-diseño-aplicados)
+9. [Seguridad](#seguridad)
+10. [Pruebas rápidas](#pruebas-rápidas)
+
 ## Tecnologías
 
 | Capa | Tecnologías |
@@ -46,6 +59,26 @@ practica07/
         └── services/        # employee.service.ts, auth.service.ts
 ```
 
+## Dependencias de seguridad (JWT)
+
+El módulo de autenticación del backend usa tres librerías adicionales:
+
+| Paquete | Para qué |
+| --- | --- |
+| `jsonwebtoken` | Firmar (`jwt.sign`) y verificar (`jwt.verify`) los tokens |
+| `bcrypt` | Guardar las contraseñas como hash y compararlas en el login |
+| `dotenv` | Cargar `JWT_SECRET` y el resto de la configuración desde `.env` |
+
+Si clonas el repositorio, ya vienen en `backend/package.json` y se instalan con el `npm install` del paso siguiente. Para agregarlas a un proyecto desde cero:
+
+```bash
+cd backend
+npm install jsonwebtoken bcrypt dotenv
+npm install -D @types/jsonwebtoken @types/bcrypt
+```
+
+El frontend no necesita librerías extra: el token se maneja con `HttpClient`, un interceptor y `localStorage`.
+
 ## Instalación y ejecución
 
 ### 1. Backend
@@ -54,6 +87,8 @@ practica07/
 cd backend
 npm install
 ```
+
+Este comando instala todas las dependencias del backend, incluidas las de JWT.
 
 Crea el archivo `backend/.env` a partir de `.env.example`:
 
@@ -166,8 +201,6 @@ Authorization: Bearer <token>
 | `GET /employees` con token alterado | 403 |
 | `GET /employees` con token válido | 200 |
 | Abrir `/employees` en el navegador sin sesión | Redirige a `/login` |
-
-
 
 ## Autor
 
