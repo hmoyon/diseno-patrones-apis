@@ -70,6 +70,10 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "aws": {
+              "ssr": false,
+              "prerender": false
             }
           },
           "defaultConfiguration": "production"
