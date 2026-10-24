@@ -3,6 +3,8 @@ import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee';
 import { EmployeeFormValue } from '../employee-form/employee-form.component';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 /** Datos del bloque de resumen superior. */
 interface EmployeeStats {
@@ -36,6 +38,10 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
   // ---- Búsqueda (estado local de la vista) ----
   private readonly searchSubject = new BehaviorSubject<string>('');
   readonly search$ = this.searchSubject.asObservable();
+
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  readonly currentUser$ = this.authService.currentUser$;
 
   /** Lista filtrada por el texto de búsqueda (derivada, sin mutar el estado). */
   readonly filtered$ = combineLatest([this.employees$, this.searchSubject]).pipe(
@@ -142,5 +148,13 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
     this.toast = message;
     clearTimeout(this.toastTimer);
     this.toastTimer = setTimeout(() => (this.toast = null), 2500);
+  }
+
+  
+
+
+  logout(): void {
+  this.authService.logout();
+  this.router.navigate(['/login']);
   }
 }

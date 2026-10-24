@@ -12,3 +12,19 @@ export class NotFoundError extends AppError {
     this.name = 'NotFoundError';
   }
 }
+
+// 401: no hay token o las credenciales no son válidas.
+export class UnauthorizedError extends AppError {
+  constructor(message = 'No autenticado') {
+    super(401, message);
+    this.name = 'UnauthorizedError';
+  }
+}
+
+// 403: el token existe pero está vencido o su firma es inválida.
+export class ForbiddenError extends AppError {
+  constructor(message = 'Acceso prohibido') {
+    super(403, message);
+    this.name = 'ForbiddenError';
+  }
+}

@@ -1,14 +1,12 @@
-// src/config/database.ts
 import mongoose from 'mongoose';
+import { env } from './env.js';
 
 export const connectDatabase = async (): Promise<void> => {
-  const MONGO_URI = 'mongodb://127.0.0.1/usuarios_db';
   try {
-    await mongoose.connect(MONGO_URI);
+    await mongoose.connect(env.mongoUri);
     console.log('🔄 [Database]: Conexión exitosa a MongoDB');
   } catch (error) {
     console.error('❌ Error crítico al conectar a la base de datos:', error);
     process.exit(1);
   }
 };
-    

@@ -11,6 +11,23 @@
       </svg>
       Empleados
     </a>
+
+<div class="session" *ngIf="currentUser$ | async as user">
+  <div class="session-info">
+    <span class="session-email">{{ user.email }}</span>
+    <span class="session-role">{{ user.rol }}</span>
+  </div>
+  <button type="button" class="logout" (click)="logout()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"></path>
+      <path d="M10 17l5-5-5-5"></path>
+      <path d="M15 12H4"></path>
+    </svg>
+    Cerrar sesión
+  </button>
+</div>
+
+
   </nav>
 
   <main class="content">
