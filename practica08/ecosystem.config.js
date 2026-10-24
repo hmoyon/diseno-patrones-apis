@@ -25,9 +25,9 @@ module.exports = {
   deploy: {
     production: {
       user: 'ubuntu',
-      host: ['TU_IP_ELASTICA'],
+      host: ['18.221.214.90'],
       ref: 'origin/main',
-      repo: 'git@github.com:TU_USUARIO/TU_REPOSITORIO.git',
+      repo: 'git@github.com:hmoyon/https://github.com/hmoyon/diseno-patrones-apis.git',
       path: APP_DIR,
       ssh_options: ['IdentityFile=~/.ssh/practica08-aws.pem', 'StrictHostKeyChecking=accept-new'],
       'pre-setup': `mkdir -p ${APP_DIR}/shared/logs`,
