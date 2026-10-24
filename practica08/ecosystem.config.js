@@ -27,7 +27,7 @@ module.exports = {
       user: 'ubuntu',
       host: ['18.221.214.90'],
       ref: 'origin/main',
-      repo: 'git@github.com:hmoyon/https://github.com/hmoyon/diseno-patrones-apis.git',
+      repo: 'git@github.com:hmoyon/diseno-patrones-apis.git',
       path: APP_DIR,
       ssh_options: ['IdentityFile=~/.ssh/practica08-aws.pem', 'StrictHostKeyChecking=accept-new'],
       'pre-setup': `mkdir -p ${APP_DIR}/shared/logs`,
