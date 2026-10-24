@@ -1,0 +1,17 @@
+<main class="login-screen">
+  <section class="login-card" aria-labelledby="login-title">
+    <span class="brand">RR.HH. Panel</span>
+    <h1 id="login-title">Iniciar sesión</h1>
+    <p class="subtitle">Ingresa con tu correo institucional</p>
+
+    <div class="alert alert--info" *ngIf="sessionExpired && !errorMessage">
+      Tu sesión terminó. Vuelve a iniciar sesión.
+    </div>
+
+    <!-- Errores del backend ya traducidos por AuthService -->
+    <div class="alert alert--error" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <!-- DUMB: formulario -->
+    <app-login-form [isLoading]="loading" (submitLogin)="onLogin($event)"></app-login-form>
+  </section>
+</main>

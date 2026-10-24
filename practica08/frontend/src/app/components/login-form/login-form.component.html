@@ -1,0 +1,17 @@
+<form class="login-form" (ngSubmit)="onSubmit()" #f="ngForm">
+  <label class="field" for="email">
+    Correo institucional
+    <input id="email" type="email" name="email" autocomplete="username"
+           required email [(ngModel)]="formModel.email" [disabled]="isLoading" />
+  </label>
+
+  <label class="field" for="password">
+    Contraseña
+    <input id="password" type="password" name="password" autocomplete="current-password"
+           required minlength="6" [(ngModel)]="formModel.password" [disabled]="isLoading" />
+  </label>
+
+  <button type="submit" class="btn btn--primary" [disabled]="isLoading || f.invalid">
+    {{ isLoading ? 'Validando credenciales…' : 'Iniciar sesión' }}
+  </button>
+</form>

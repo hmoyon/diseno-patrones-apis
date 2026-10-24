@@ -1,0 +1,123 @@
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead tr {
+  background: var(--color-surface-alt);
+  text-align: left;
+  color: var(--color-text-muted);
+}
+
+th {
+  padding: 12px 16px;
+  font-weight: 500;
+}
+
+td {
+  padding: 10px 16px;
+  border-top: 1px solid #eef1f4;
+  vertical-align: middle;
+}
+
+.num {
+  text-align: right;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.muted {
+  color: var(--color-text-soft);
+}
+
+/* Resalta la fila que se está editando */
+tr.editing td {
+  background-color: #eef3ff;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.name {
+  font-weight: 500;
+}
+
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef1f4;
+  color: var(--color-text-soft);
+  font-size: 12px;
+}
+
+.actions {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  white-space: nowrap;
+}
+
+.actions .btn + .btn {
+  margin-left: 4px;
+}
+
+.confirm-text {
+  margin-right: 6px;
+  font-size: 13px;
+  color: var(--color-danger-ink);
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+}
+
+.icon-btn--primary {
+  color: var(--color-primary);
+}
+
+.icon-btn--danger {
+  color: var(--color-danger);
+}
+
+.icon-btn:hover {
+  background: var(--color-surface-alt);
+}
+
+.empty {
+  margin: 0;
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
