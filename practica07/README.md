@@ -1,4 +1,4 @@
-# Práctica 06 · Componente de Seguridad Avanzada (JWT & Autenticación)
+# Práctica 07 · Componente de Seguridad Avanzada (JWT & Autenticación)
 
 Aplicación MEAN (MongoDB, Express, Angular, Node.js) para gestionar empleados, protegida con autenticación por **JSON Web Tokens**. Corresponde a la **Práctica 05 — Seguridad (Confidencialidad y Autenticidad)** de la asignatura *Patrones de Diseño de APIs*, Maestría en Software, Universidad Politécnica Salesiana.
 
